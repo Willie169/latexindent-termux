@@ -1,16 +1,15 @@
 #!/data/data/com.termux/files/usr/bin/bash
-
-pkg update
-apt upgrade -y
-apt install clang curl git libngtcp2 make perl -y
-cd latexindent.pl || exit
-echo 'yes' | cpan
-cpan -i App::cpanminus
-cpanm --force PAR::Packer
-cpanm --force YAML::Tiny
-cpanm --force File::HomeDir
-cpanm --force Unicode::GCString
+/entrypoint.sh pkg update
+/entrypoint.sh apt upgrade -y
+/entrypoint.sh apt install clang curl git libngtcp2 make perl -y
+/entrypoint.sh cd latexindent.pl || exit
+/entrypoint.sh echo 'yes' | cpan
+/entrypoint.sh cpan -i App::cpanminus
+/entrypoint.sh cpanm --force PAR::Packer
+/entrypoint.sh cpanm --force YAML::Tiny
+/entrypoint.sh cpanm --force File::HomeDir
+/entrypoint.sh cpanm --force Unicode::GCString
 # shellcheck disable=2016
-sed -i -r 's,eval\s\"use\sUnicode::GCString\"\sif\s\$switches\{GCString\},use Unicode::GCString,' latexindent.pl
-export PAR_VERBATIM=1
-pp --addfile="defaultSettings.yaml;lib/LatexIndent/defaultSettings.yaml" --cachedeps=scancache --output latexindent latexindent.pl
+/entrypoint.sh sed -i -r 's,eval\s\"use\sUnicode::GCString\"\sif\s\$switches\{GCString\},use Unicode::GCString,' latexindent.pl
+/entrypoint.sh export PAR_VERBATIM=1
+/entrypoint.sh pp --addfile="defaultSettings.yaml;lib/LatexIndent/defaultSettings.yaml" --cachedeps=scancache --output latexindent latexindent.pl
