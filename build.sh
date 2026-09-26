@@ -9,6 +9,6 @@ cpanm YAML::Tiny
 cpanm File::HomeDir
 cpanm Unicode::GCString
 # shellcheck disable=2016
-sed -i'.bak' -r 's,eval\s\"use\sUnicode::GCString\"\sif\s\$switches\{GCString\},use Unicode::GCString,' latexindent.pl
+sed -i -r 's,eval\s\"use\sUnicode::GCString\"\sif\s\$switches\{GCString\},use Unicode::GCString,' latexindent.pl
 export PAR_VERBATIM=1
 pp --addfile="defaultSettings.yaml;lib/LatexIndent/defaultSettings.yaml" --cachedeps=scancache --output latexindent latexindent.pl
