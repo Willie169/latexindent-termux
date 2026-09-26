@@ -13,3 +13,4 @@ cd latexindent.pl
 /entrypoint.sh cpanm --force Unicode::GCString
 export PAR_VERBATIM=1
 /entrypoint.sh pp --addfile="defaultSettings.yaml;lib/LatexIndent/defaultSettings.yaml" --cachedeps="$PWD/scancache" --output latexindent latexindent.pl
+tree
