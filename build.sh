@@ -1,8 +1,7 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
 pkg update
-apt install git perl -y
-git clone https://github.com/cmhughes/latexindent.pl.git
+apt install perl -y
 cd latexindent.pl || exit
 echo 'yes' | cpan
 cpanm -f PAR::Packer

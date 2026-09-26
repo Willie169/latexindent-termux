@@ -11,6 +11,8 @@ jobs:
         run: |
           cd ~
           git clone https://github.com/Willie169/latexindent-termux.git
+          cd latexindent-termux
+          git clone https://github.com/cmhughes/latexindent.pl.git
       - name: Run build.sh
         timeout-minutes: 360
         run: |
