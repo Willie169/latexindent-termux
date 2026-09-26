@@ -1,7 +1,8 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
 pkg update
-apt install curl make perl -y
+apt upgrade -y
+apt install curl libngtcp2 make perl -y
 cd latexindent.pl || exit
 echo 'yes' | cpan
 cpan -i App::cpanminus
