@@ -1,6 +1,5 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
-cd ~ || exit
 pkg update
 apt install git perl -y
 git clone https://github.com/cmhughes/latexindent.pl.git
