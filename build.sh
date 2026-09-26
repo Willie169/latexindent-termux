@@ -2,7 +2,8 @@
 
 pkg update
 apt upgrade -y
-apt install clang curl libngtcp2 make perl -y
+apt install clang curl git libngtcp2 make perl -y
+git clone https://github.com/cmhughes/latexindent.pl.git
 cd latexindent.pl || exit
 echo 'yes' | cpan
 cpan -i App::cpanminus

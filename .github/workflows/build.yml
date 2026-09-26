@@ -12,9 +12,6 @@ jobs:
           cd ~
           git clone https://github.com/Willie169/latexindent-termux.git
           cd latexindent-termux
-          git clone https://github.com/cmhughes/latexindent.pl.git
-          cd latexindent.pl
-          chmod 777 latexindent.pl
       - name: Run build.sh
         timeout-minutes: 360
         run: |
