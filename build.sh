@@ -1,7 +1,7 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
 pkg update
-apt install curl perl -y
+apt install curl make perl -y
 cd latexindent.pl || exit
 echo 'yes' | cpan
 cpan -i YAML::Tiny
