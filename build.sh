@@ -4,6 +4,7 @@ pkg update
 apt install perl -y
 cd latexindent.pl || exit
 echo 'yes' | cpan
+cpan -i App::cpanminus
 cpanm -f PAR::Packer
 cpanm YAML::Tiny
 cpanm File::HomeDir
