@@ -18,14 +18,10 @@ jobs:
           sudo apt update
           sudo DEBIAN_FRONTEND=noninteractive apt install docker-ce -y
           git clone https://github.com/Willie169/latexindent-termux.git
-          cd latexindent-termux
-          git clone https://github.com/cmhughes/latexindent.pl.git
-          cd latexindent.pl
-          sed -i -r 's,eval\s\"use\sUnicode::GCString\"\sif\s\$switches\{GCString\},use Unicode::GCString,' latexindent.pl
       - name: Run build.sh
         timeout-minutes: 360
         run: |
-          sudo docker run --rm -v "$HOME/latexindent-termux:/data/data/com.termux/files/home/latexindent-termux" -w "/data/data/com.termux/files/home/latexindent-termux" termux/termux-docker bash -c '
+          sudo docker run --rm -v "$HOME/latexindent-termux:/data/data/com.termux/files/home/latexindent-termux" -w "/data/data/com.termux/files/home/latexindent-termux" --privileged termux/termux-docker bash -c '
             set -euxo pipefail
             echo "deb https://packages.termux.dev/apt/termux-main stable main" > /data/data/com.termux/files/usr/etc/apt/sources.list
             ./build.sh
