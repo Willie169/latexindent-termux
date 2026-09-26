@@ -4,7 +4,6 @@ pkg update
 apt install curl make perl -y
 cd latexindent.pl || exit
 echo 'yes' | cpan
-cpan -i YAML::Tiny
 cpan -i App::cpanminus
 cpanm -f PAR::Packer
 cpanm YAML::Tiny
