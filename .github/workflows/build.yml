@@ -13,10 +13,10 @@ jobs:
           git clone https://github.com/Willie169/latexindent-termux.git
           cd latexindent-termux
           git clone https://github.com/cmhughes/latexindent.pl.git
-          cd latexindent.pl
-          sed -i -r 's,eval\s\"use\sUnicode::GCString\"\sif\s\$switches\{GCString\},use Unicode::GCString,' latexindent.pl
           chmod 777 latexindent.pl
-          chmod 777 .
+          cd latexindent.pl
+          chmod 666 latexindent.pl
+          sed -i -r 's,eval\s\"use\sUnicode::GCString\"\sif\s\$switches\{GCString\},use Unicode::GCString,' latexindent.pl
       - name: Run build.sh
         timeout-minutes: 360
         run: |
