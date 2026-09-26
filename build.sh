@@ -5,10 +5,10 @@ apt install curl make perl -y
 cd latexindent.pl || exit
 echo 'yes' | cpan
 cpan -i App::cpanminus
-cpanm -f PAR::Packer
-cpanm YAML::Tiny
-cpanm File::HomeDir
-cpanm Unicode::GCString
+cpanm --force PAR::Packer
+cpanm --force YAML::Tiny
+cpanm --force File::HomeDir
+cpanm --force Unicode::GCString
 # shellcheck disable=2016
 sed -i -r 's,eval\s\"use\sUnicode::GCString\"\sif\s\$switches\{GCString\},use Unicode::GCString,' latexindent.pl
 export PAR_VERBATIM=1
