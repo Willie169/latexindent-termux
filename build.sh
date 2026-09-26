@@ -1,5 +1,6 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
+/entrypoint.sh cd latexindent.pl
 /entrypoint.sh pkg update
 /entrypoint.sh apt upgrade -y
 /entrypoint.sh apt install clang curl git libngtcp2 make perl -y

@@ -18,7 +18,7 @@ jobs:
       - name: Run build.sh
         timeout-minutes: 360
         run: |
-          docker run --rm -v "$HOME/latexindent-termux:/data/data/com.termux/files/home/latexindent-termux" -w "/data/data/com.termux/files/home/latexindent-termux/latexindent.pl" --privileged termux/termux-docker bash -c '
+          docker run --rm -v "$HOME/latexindent-termux:/data/data/com.termux/files/home/latexindent-termux" -w "/data/data/com.termux/files/home/latexindent-termux" --privileged termux/termux-docker bash -c '
             set -euxo pipefail
             echo "deb https://packages.termux.dev/apt/termux-main stable main" > /data/data/com.termux/files/usr/etc/apt/sources.list
             ./build.sh
