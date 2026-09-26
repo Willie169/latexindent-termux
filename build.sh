@@ -10,5 +10,5 @@ cd latexindent.pl || exit
 /entrypoint.sh cpanm --force YAML::Tiny
 /entrypoint.sh cpanm --force File::HomeDir
 /entrypoint.sh cpanm --force Unicode::GCString
-/entrypoint.sh export PAR_VERBATIM=1
+export PAR_VERBATIM=1
 /entrypoint.sh pp --addfile="defaultSettings.yaml;lib/LatexIndent/defaultSettings.yaml" --cachedeps=scancache --output latexindent latexindent.pl
