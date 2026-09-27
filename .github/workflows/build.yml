@@ -6,6 +6,7 @@ on:
     paths:
       - ".github/workflows/build.yml"
       - "tag"
+      - "build.sh"
   workflow_dispatch:
 jobs:
   prepre:
