@@ -1,10 +1,66 @@
 name: build
 on:
+  schedule:
+    - cron: "0 */6 * * *"
+  push:
+    paths:
+      - ".github/workflows/build.yml"
+      - "tag"
   workflow_dispatch:
 jobs:
+  prepre:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.tag.outputs.version }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          repository: cmhughes/latexindent.pl
+          fetch-depth: 0
+
+      - name: Tag
+        id: tag
+        run: |
+          VERSION="$(git describe --tags "$(git rev-list --tags --max-count=1)")"
+          echo "Upstream version: $VERSION"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+  pre:
+    needs:
+      - prepre
+    runs-on: ubuntu-latest
+    env:
+      VERSION: ${{ needs.prepre.outputs.version }}
+    outputs:
+      changed: ${{ steps.check.outputs.changed }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+      - name: Check
+        id: check
+        run: |
+          if diff -q tag <(echo "$VERSION"); then
+            echo "No changes in upstream."
+            echo "changed=0" >> "$GITHUB_OUTPUT"
+            exit 0
+          else
+            echo "changed=1" >> "$GITHUB_OUTPUT"
+            echo "$VERSION" > tag
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add -A
+            git commit -m "$VERSION"
+            git push origin main
+            git tag -a "$VERSION" -m "$VERSION"
+            git push origin "$VERSION"
+          fi
   build:
+    needs:
+      - prepre
+      - pre
     timeout-minutes: 360
     runs-on: ubuntu-24.04-arm
+    if: needs.pre.outputs.changed == '1'
     steps:
       - name: Prepare
         timeout-minutes: 360
@@ -29,3 +85,32 @@ jobs:
         with:
           name: latexindent
           path: ~/latexindent-termux/latexindent.pl/latexindent
+  release:
+    needs:
+      - prepre
+      - pre
+      - build
+    runs-on: ubuntu-latest
+    if: needs.pre.outputs.changed == '1'
+    env:
+      VERSION: ${{ needs.prepre.outputs.version }}
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: latexindent
+          path: release/
+      - uses: softprops/action-gh-release@v3
+        with:
+          tag_name: ${{ env.VERSION }}
+          name: ${{ env.VERSION }}
+          files: release/*
+  delete-artifact:
+    needs:
+      - release
+      - pre
+    runs-on: ubuntu-latest
+    if: needs.pre.outputs.changed == '1'
+    steps:
+      - uses: geekyeggo/delete-artifact@v6
+        with:
+          name: "*"
